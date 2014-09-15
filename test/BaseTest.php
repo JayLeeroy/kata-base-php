@@ -2,14 +2,14 @@
 
 namespace Kata\Test;
 
-use Kata\Base;
+    use Kata\Base;
 
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
-	public function testBase()
-	{
-		$base = new Base();
+    public function testBase()
+    {
+        $base = new Base();
 
-		$this->assertEquals(0.1, $base->getVersion());
-	}
+        $this->assertEquals(0.1, $base->getVersion());
+    }
 }
