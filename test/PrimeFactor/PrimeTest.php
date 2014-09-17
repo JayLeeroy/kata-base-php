@@ -12,19 +12,33 @@ namespace Kata\Test\PrimeFactor;
 
 class PrimeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPrime()
+    /**
+     * @covers Prime
+     * @dataProvider testPrimeDataProvider
+     *
+     * @param array $expectedPrimeFactors
+     * @param int   $number
+     */
+    public function testPrime($expectedPrimeFactors,$number)
     {
         $prime = new Prime();
 
-        $this->assertEquals(array(2), $prime->getPrimeFactor(2));
-        $this->assertEquals(array(3), $prime->getPrimeFactor(3));
-        $this->assertEquals(array(2,2), $prime->getPrimeFactor(4));
-        $this->assertEquals(array(2,3), $prime->getPrimeFactor(6));
-        $this->assertEquals(array(3,3), $prime->getPrimeFactor(9));
-        $this->assertEquals(array(2,2,3), $prime->getPrimeFactor(12));
-        $this->assertEquals(array(3,5), $prime->getPrimeFactor(15));
+        $primeFactors = $prime->getPrimeFactor($number);
+        $this->assertEquals($expectedPrimeFactors,$primeFactors);
+    }
 
-        $this->assertEquals(array(), $prime->getPrimeFactor(1));
+    public function testPrimeDataProvider()
+    {
+        return array(
+            [array(2), 2],
+            [array(3), 3],
+            [array(2,2), 4],
+            [array(2,3), 6],
+            [array(3,3), 9],
+            [array(2,2,3), 12],
+            [array(3,5), 15],
+            [array(1), 1]
+        );
     }
 }
  

@@ -11,6 +11,11 @@ namespace Kata\PrimeFactor;
 class  Prime {
     public function getPrimeFactor($number)
     {
+        if ($number < 2)
+        {
+            return array($number);
+        }
+
         $divider = 2;
         $factors = [];
 
