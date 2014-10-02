@@ -19,11 +19,26 @@ class ShopperTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($this->shopper->getItems());
     }
 
-    public function testAddItemToBucket()
+    /**
+     * @param $item            string
+     * @param $expectedItems   array
+     *
+     * @depends testInitBucket
+     * @dataProvider addItemToBucketDataProvider
+     */
+    public function testAddItemToBucket($item, $expectedItems)
     {
-        $this->shopper->addItem('apple');
+        $this->shopper->addItem($item);
+        $this->assertEquals($expectedItems, $this->shopper->getItems());
+    }
 
-        $this->assertEquals(array('apple'), $this->shopper->getItems());
+    public function addItemToBucketDataProvider()
+    {
+        return array(
+            array('apple', array('apple')),
+            array('light', array('apple', 'light')),
+            array('', array('apple', 'light')),
+        );
     }
 }
  

@@ -17,6 +17,6 @@ class Shopper
 
     public function addItem($item)
     {
-        return $this->items[] = $item;
+        $this->items[] = $item;
     }
 }
