@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Contains the prime related functions.
- */
-
 namespace Kata\Shop;
 
 class Cashier
@@ -14,18 +10,41 @@ class Cashier
     /**@var Shop   The Shop instance. */
     protected $shop;
 
+    /**
+     * Constructor.
+     *
+     * @param Shop $shop   The shop instance.
+     */
     public function __construct(Shop $shop)
     {
         $this->shop = $shop;
     }
 
+    /**
+     * Sets the actual shopper.
+     *
+     * @param Shopper $shopper   The actual shopper instance.
+     *
+     * @return void
+     */
     public function setShopper(Shopper $shopper)
     {
         $this->shopper = $shopper;
     }
 
+    /**
+     * Calculating the price by specified shop and the actual shopper.
+     *
+     * @return int
+     * @throws \UnexpectedValueException
+     */
     public function calculatePrice()
     {
+        if (empty($this->shopper))
+        {
+            throw new \UnexpectedValueException('Invalid shopper instance');
+        }
+
         $shoppingCart       = $this->shopper->getItems();
         $items              = $this->shop->getItemData();
         $itemCounterPerType = array();
@@ -56,6 +75,14 @@ class Cashier
         return $bill;
     }
 
+    /**
+     * Returns the item is discounted or not.
+     *
+     * @param array $itemData   The specified item data.
+     * @param int   $itemCount  The amount of the shopper shopped by the specified item.
+     *
+     * @return bool   The item is discounted or not.
+     */
     protected  function isDiscountedItem($itemData, $itemCount)
     {
         return (

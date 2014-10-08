@@ -19,12 +19,10 @@ class CashierTest extends \PHPUnit_Framework_TestCase
 
         $this->cashier = new Cashier($shop);
 
-        $this->shopper = $this->initMock();
-
-        $this->cashier->setShopper($this->shopper);
+        $this->shopper = $this->initShopper();
     }
 
-    protected function initMock()
+    protected function initShopper()
     {
         $shopper = $this->getMockBuilder('Kata\\Shop\\Shopper')->disableOriginalConstructor()->getMock();
 
@@ -39,6 +37,7 @@ class CashierTest extends \PHPUnit_Framework_TestCase
      */
     public function testCalculateItems($expectedValue, $shoppedItems)
     {
+        $this->cashier->setShopper($this->shopper);
         $this->shopper->expects($this->exactly(1))->method('getItems')->willReturn($shoppedItems);
         $this->assertEquals($expectedValue, $this->cashier->calculatePrice());
     }
@@ -63,6 +62,7 @@ class CashierTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidItems($expectedValue, $shoppedItems)
     {
+        $this->cashier->setShopper($this->shopper);
         $this->shopper->expects($this->exactly(1))->method('getItems')->willReturn($shoppedItems);
         $this->assertEquals($expectedValue, $this->cashier->calculatePrice());
     }
@@ -73,6 +73,14 @@ class CashierTest extends \PHPUnit_Framework_TestCase
             array(43, array('banana')),
             array(32, array('')),
         );
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testInvalidShopper()
+    {
+        $this->cashier->calculatePrice();
     }
 }
  
