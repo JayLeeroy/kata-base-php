@@ -68,6 +68,7 @@ class ShopperTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(array('apple'), array('apple') , array()),
+            array(array('apple'), array('waffle') , array('apple')),
             array(array('apple', 'light'), array('light'), array('apple')),
             array(array('apple', 'light', 'starShip'), array('light'), array('apple', 'starShip')),
             array(array('apple','apple', 'light'), array('apple','apple', 'light') , array()),
